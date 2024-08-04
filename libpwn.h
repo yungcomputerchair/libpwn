@@ -18,6 +18,9 @@ void WriteNops(size_t startAddr, size_t endAddr);
 // Replaces the byte at addr with the specified value
 void WriteByte(size_t addr, BYTE val);
 
+// Writes the address addrVal at location atAddr
+void WriteAddress(size_t atAddr, size_t addrVal);
+
 // Writes a C-string to addr
 void WriteString(size_t addr, const char* newStr);
 

@@ -7,6 +7,7 @@ void PrintBytes(size_t addr, size_t n) {
     size_t i = 0;
     BYTE byte;
     BYTE* byteAddr;
+    printf("%p:\n", (LPVOID)addr);
     while (i < n) {
         byteAddr = (BYTE*)addr + i;
         byte = *byteAddr;
@@ -42,11 +43,20 @@ void WriteNops(size_t startAddr, size_t endAddr) {
     const BYTE NOP = 0x90;
     size_t sz = endAddr - startAddr;
     RtlFillMemory((LPVOID)startAddr, sz, NOP);
+    printf("Replaced %d bytes at %p with NOP\n", sz, (LPVOID)startAddr);
 }
 
 void WriteByte(size_t addr, BYTE val) {
     BYTE* byteAddr = (BYTE*)addr;
+    BYTE oldByte = *byteAddr;
     *byteAddr = val;
+    printf("Replaced byte at %p (%02x -> %02x)\n", byteAddr, oldByte, val);
+}
+
+void WriteAddress(size_t atAddr, size_t addrVal) {
+    size_t* destAddr = (size_t*)atAddr;
+    *destAddr = addrVal;
+    printf("*%p = %p\n", destAddr, (LPVOID)addrVal);
 }
 
 void WriteString(size_t addr, const char* newStr) {
