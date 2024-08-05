@@ -1,6 +1,9 @@
 #pragma once
 #include "pch.h"
 
+// Sets the log file
+void SetLogFile(FILE* file);
+
 // Pretty-prints n bytes
 void PrintBytes(size_t addr, size_t n, size_t bytesPerLine = 16);
 
