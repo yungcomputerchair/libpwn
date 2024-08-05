@@ -12,8 +12,7 @@ void PatchHelloWorldString(size_t rdataAddr) {
     const size_t STR_OFFSET = 0x130;
 
     size_t strAddr = rdataAddr + STR_OFFSET;
-    assert(strcmp((char*)strAddr, "Hello world!\n") == 0);
-    ReplaceString(strAddr, "pwnd\n");
+    ReplaceString(strAddr, "pwnd\n", "Hello world!\n");
 }
 
 // Prints the bytes that make up the main function in the text section
@@ -33,13 +32,14 @@ void PatchOutHelloWorld2(size_t mainAddr) {
     const size_t CALL_START_OFFSET = 0x26;
     const size_t CALL_END_OFFSET = 0x30;
     const size_t STACK_RESTORE_SZ_OFFSET = 0x3c;
+    const BYTE STACK_RESTORE_SZ_EXPECTED = 0xc;
 
     size_t startAddr = mainAddr + CALL_START_OFFSET;
     size_t endAddr = mainAddr + CALL_END_OFFSET;
     WriteNops(startAddr, endAddr);
 
     size_t stackRestoreSizeAddr = mainAddr + STACK_RESTORE_SZ_OFFSET;
-    WriteByte(stackRestoreSizeAddr, 0x8);
+    WriteByte(stackRestoreSizeAddr, 0x8, &STACK_RESTORE_SZ_EXPECTED);
 }
 
 // Replace the parameter in the third call to printf
