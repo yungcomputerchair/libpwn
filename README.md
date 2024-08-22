@@ -1,6 +1,6 @@
 # libpwn
 
-Static library for reading and modifying x86 process data at runtime.
+Static library for reading and modifying Windows x86 process data at runtime.
 
 ## How to use
 
